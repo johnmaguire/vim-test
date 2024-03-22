@@ -148,7 +148,7 @@ function! test#strategy#toggleterm(cmd) abort
 endfunction
 
 function! test#strategy#floaterm(cmd) abort
-  execute 'FloatermNew --autoclose=0 '.a:cmd
+  execute "FloatermNew --autoclose=0 cmd='".substitute(a:cmd, "'", '"', "g")."'"
 endfunction
 
 function! test#strategy#vtr(cmd) abort
@@ -252,7 +252,8 @@ function! test#strategy#wezterm(cmd) abort
     let g:test#wezterm#pane_id = l:output[0]
   endif
 
-  call system([l:wezterm, "cli", "send-text", "--no-paste", "--pane-id", g:test#wezterm#pane_id, a:cmd . ""])
+  call system([l:wezterm, "cli", "send-text", "--no-paste", "--pane-id", g:test#wezterm#pane_id, a:cmd . "
+"])
 endfunction
 
 function! s:execute_with_compiler(cmd, script) abort
